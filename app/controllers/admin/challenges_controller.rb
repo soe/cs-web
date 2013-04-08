@@ -26,8 +26,25 @@ class Admin::ChallengesController < ApplicationController
     @challenge_technologies = []
     @challenge_reviewers = []
     @challenge_commentNotifiers = []
+
     # default in a first place prize
-    @prizes = [Hashie::Mash.new(:place => 1, :points => 100, :prize => '$100', :value => 100)]
+    @prizes = [
+      Hashie::Mash.new(:place => 1, :points => 500, :prize => '$500', :value => 500),
+      Hashie::Mash.new(:place => 2, :points => 250, :prize => '$250', :value => 250),
+      Hashie::Mash.new(:place => 3, :points => 0, :prize => '$0', :value => 0),
+      Hashie::Mash.new(:place => 4, :points => 0, :prize => '$0', :value => 0),
+      Hashie::Mash.new(:place => 5, :points => 0, :prize => '$0', :value => 0),
+    ]
+
+    # no asset tab here for new challenge
+    @steps = [
+      Hashie::Mash.new(:shortname => "step1", :name => "Very first step"),
+      Hashie::Mash.new(:shortname => "step2", :name => "Step 2"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Step 3"),
+      Hashie::Mash.new(:shortname => "step4", :name => "Step 4"),
+      Hashie::Mash.new(:shortname => "step5", :name => "Step 5"),
+    ]
+
   end
 
   def edit
@@ -57,6 +74,16 @@ class Admin::ChallengesController < ApplicationController
     @challenge.commentNotifiers .each do | commentNotifier |
       @challenge_commentNotifiers.push(commentNotifier.member__r.name) 
     end  
+
+    # here there is one more step - assets
+    @steps = [
+      Hashie::Mash.new(:shortname => "step1", :name => "Step 1"),
+      Hashie::Mash.new(:shortname => "step2", :name => "Step 2"),
+      Hashie::Mash.new(:shortname => "step3", :name => "Step 3"),
+      Hashie::Mash.new(:shortname => "step4", :name => "Step 4"),
+      Hashie::Mash.new(:shortname => "assets", :name => "Assets"),
+      Hashie::Mash.new(:shortname => "step5", :name => "Step 5"),
+    ]
 
   end
 

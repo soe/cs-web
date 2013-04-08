@@ -1,39 +1,45 @@
+function nextTab(elem) {
+  $(elem + ' li.active')
+    .next()
+    .find('a[data-toggle="tab"]')
+    .click();
+
+  $('html, body').animate({
+    scrollTop: $(elem).offset().top - 40
+  }, 200);
+}
+
+function prevTab(elem) {
+  $(elem + ' li.active')
+    .prev()
+    .find('a[data-toggle="tab"]')
+    .click();
+  $('html, body').animate({
+    scrollTop: $(elem).offset().top - 40
+  }, 200);
+}
+  
 $(function() {
+
   // Add new prize sets
   $('.add-new-prize-set').live('click', function(e) {
-    $('#prize-set').append('\
-<div class="well"><div class="control-group"> \
-  <label class="control-label">Place</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][place]"></input> \
-  </div> \
-</div> \
-<div class="control-group"> \
-  <label class="control-label">Prize</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][prize]"></input> \
-  </div> \
-</div> \
-<div class="control-group"> \
-  <label class="control-label">Points</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][points]"></input> \
-  </div> \
-</div> \
-<div class="control-group"> \
-  <label class="control-label">Value</label> \
-  <div class="controls"> \
-    <input type="text" name="admin_challenge[prizes][][value]"></input> \
-  </div> \
-</div> \
-<a class="btn btn-danger delete-prize-set">Delete This Prize Set</a> \
-</div>')
+    $('#prize-set tbody').append('\
+      <tr> \
+        <td><input type="text" name="admin_challenge[prizes][][place]" /></td> \
+        <td><input type="text" name="admin_challenge[prizes][][prize]" /></td> \
+        <td><input type="text" name="admin_challenge[prizes][][points]" /></td> \
+        <td><input type="text" name="admin_challenge[prizes][][value]" /></td> \
+        <td><a class="btn btn-danger delete-prize-set"><span>Delete This Prize Set</span></a></td> \
+      </tr>')
+
+    $('#prize-set tbody > tr').jqTransform()
+
     e.preventDefault()
   })
 
   // Delete prize sets
   $('.delete-prize-set').live('click', function(e) {
-    $(this).parent().fadeOut().empty()
+    $(this).parents('tr').fadeOut().empty()
     e.preventDefault()
   })
 
